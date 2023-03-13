@@ -1,6 +1,11 @@
 # ComposeMusicPlayerLayout
 A small screen aimed at studying the compose library
 
-<img src="/screenshots/screen1.png" alt="mainscreen" title="Main screen"> 
-<img src="/screenshots/screen2.png" alt="mainscreen" title="Main screen"> 
+
+<table border="0">
+  <tr border="0">
+    <td valign="top"><img src="/screenshots/screen1.png" alt="mainscreen" title="Main screen"> </td>
+    <td valign="top"><img src="/screenshots/screen2.png" alt="mainscreen" title="Main screen"> </td>
+  </tr>
+</table>
 
