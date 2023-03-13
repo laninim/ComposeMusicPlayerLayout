@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.laninim.composemusicplayer.data.DataSource
+import com.laninim.composemusicplayer.domain.Album
 import com.laninim.composemusicplayer.ui.HomeScreenViewModel
 
 
@@ -26,6 +27,8 @@ import com.laninim.composemusicplayer.ui.HomeScreenViewModel
 fun RecentlyPlayedSection(
     modifier: Modifier = Modifier
 ) {
+    val viewmodel : HomeScreenViewModel = viewModel()
+
     Column(
         modifier = modifier
     ) {
@@ -34,7 +37,7 @@ fun RecentlyPlayedSection(
                 text = "RECENTLY PLAYED" ,
                 color = Color.White
             )
-            val viewmodel : HomeScreenViewModel = viewModel()
+
             Text(
 
                 text = "See all" ,
@@ -50,11 +53,10 @@ fun RecentlyPlayedSection(
         LazyRow(
             contentPadding = PaddingValues(8.dp)
         ){
-            items(DataSource.getAlbumList()){
+            items(viewmodel.recentlyPlayedSong!!){
                 AlbumSection(
-                    painter = it.image ,
-                    albumName = it.albumName ,
-                    authorName = it.author)
+                    album = it
+                )
             }
         }
     }
@@ -63,17 +65,15 @@ fun RecentlyPlayedSection(
 @Composable
 fun AlbumSection(
     modifier: Modifier = Modifier ,
-    @DrawableRes painter: Int ,
-    albumName: String ,
-    authorName: String
+    album : Album
 ) {
     Column(
         modifier = modifier
             .padding(horizontal = 16.dp)
     ) {
         Image(
-            painter = painterResource(painter) ,
-            contentDescription = "$albumName" ,
+            painter = painterResource(album.image) ,
+            contentDescription = "${album.albumName}" ,
             contentScale = ContentScale.Fit ,
             modifier = Modifier
                 .clip(RoundedCornerShape(5.dp))
@@ -81,11 +81,11 @@ fun AlbumSection(
         )
         Spacer(modifier = Modifier.height(3.dp))
         Text(
-            text = albumName ,
+            text = album.albumName ,
             color = Color.White
         )
         Text(
-            text = authorName ,
+            text = album.author ,
             color = Color.White ,
             modifier = Modifier.alpha(0.6f)
         )
